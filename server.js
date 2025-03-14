@@ -35,9 +35,6 @@ app.use(
 );
 
 app.use(passUserToView); // un-comment out
-app.use('/auth', authController);
-app.use(isSignedIn); // un-comment out
-app.use('/foods', foodsController);
 
 app.get('/', (req, res) => {
   res.render('index.ejs', {
@@ -45,15 +42,10 @@ app.get('/', (req, res) => {
   });
 });
 
-app.get('/vip-lounge', (req, res) => {
-  if (req.session.user) {
-    res.send(`Welcome to the party ${req.session.user.username}.`);
-  } else {
-    res.send('Sorry, no guests allowed.');
-  }
-});
+app.use('/auth', authController);
 
-
+app.use(isSignedIn); // un-comment out
+app.use('/users/:userId/foods', foodsController);
 
 app.listen(port, () => {
   console.log(`The express app is ready on port ${port}!`);
