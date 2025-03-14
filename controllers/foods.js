@@ -17,5 +17,11 @@ router.get('/', async (req, res) => {
   };
 });
 
+// GET /users/:userID/foods/new
+
+router.get('/new', async (req, res) => {
+  res.send("checking");
+});
+
 
 module.exports = router;
