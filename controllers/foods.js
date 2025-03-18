@@ -4,6 +4,24 @@ const User = require("../models/user.js");
 
 
 
+// GET /users/:userId/foods/:foodsId/edit
+router.get('/:foodId/edit', async (req, res) => {
+  try {
+    const currentUser = await User.findById(req.session.user._id);
+    const foodToEdit = currentUser.pantry.id(req.params.foodId);
+    res.render('foods/edit.ejs', {
+      food: foodToEdit,
+    });
+  } catch (error) {
+    console.log(error); 
+    res.redirect('/');
+  }
+});
+
+// GET /users/:userID/foods/new
+router.get("/new", async (req, res) => {
+  res.render("foods/new.ejs");
+});
 
 // PUT /users/:userId/foods/:foodId
 router.put('/:foodId', async (req, res) => {
@@ -18,26 +36,6 @@ router.put('/:foodId', async (req, res) => {
     console.log(error)
     res.redirect('/');
   }
-});
-
-
-// GET /users/:userId/foods/:foodsId/edit
-router.get('/:foodId/edit', async (req, res) => {
-  try {
-    const currentUser = await User.findById(req.session.user._id);
-    const foodToEdit = currentUser.pantry.id(req.params.foodId);
-    res.render('foods/edit.ejs', {
-      food: foodToEdit,
-    });
-  } catch (error) {
-    console.log(error) 
-    res.redirect('/');
-  }
-});
-
-// GET /users/:userID/foods/new
-router.get("/new", async (req, res) => {
-  res.render("foods/new.ejs");
 });
 
 
@@ -58,7 +56,6 @@ router.delete("/:foodId", async (req, res) => {
 
 // GET /users/:userID/foods <- already here
 router.get("/", async (req, res) => {
-  // res.send("this is the pantry that shows foods")
   try {
     const currentUser = await User.findById(req.session.user._id);
     res.render("foods/index.ejs", {
