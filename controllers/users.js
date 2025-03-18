@@ -2,12 +2,13 @@ const express = require('express');
 const router = express.Router();
 const User = require('../models/user.js')
 
-// GET /users/:userId/foods
-router.get("/:userId/foods", async (req, res) => {
+// GET /users/:userId/show
+router.get("/:userId/show", async (req, res) => {
   try {
-    const currentUser = await User.findById(req.session.user._id);
-    res.render("users/show.ejs", {
-      pantry: currentUser.pantry,
+    const communityMember = await User.findById(req.params.userId);
+    res.render('users/show.ejs', {
+      name: communityMember,
+      pantry: communityMember.pantry,
     });
   } catch (error) {
     console.log(error);

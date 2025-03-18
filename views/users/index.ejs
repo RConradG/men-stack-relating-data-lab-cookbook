@@ -6,14 +6,15 @@
   <title>Community Page</title>
 </head>
 <body>
-  <h1>Here is our Community:</h1>
+  <%- include('../partials/_navbar.ejs') %>
+  <h1>Here is your Community</h1>
+  <h2>Click on a name to get inspired by the user's pantry</h2>
   <ul>
     <% allUsers.forEach( (user) => { %>
       <li>
-        <%= user.username %>
+        <a href='/users/<%= user._id %>/show'><%= user.username %></a>
       </li>
-
-    <% }) %>
+    <% }); %>
   </ul>
 </body>
 </html>
