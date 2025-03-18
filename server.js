@@ -44,7 +44,7 @@ app.get('/', (req, res) => {
 
 app.use('/auth', authController);
 
-app.use(isSignedIn); // un-comment out
+app.use(isSignedIn);
 app.use('/users/:userId/foods', foodsController);
 
 app.listen(port, () => {

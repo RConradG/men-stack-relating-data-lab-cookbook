@@ -8,7 +8,6 @@ const foodSchema = mongoose.Schema({
 
 });
 
-
 const userSchema = mongoose.Schema({
   username: {
     type: String,
